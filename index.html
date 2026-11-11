@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>بيتزاريا</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lalezar&family=Tajawal:wght@400;500;700&display=swap">
+<style>
+:root{
+  --bg:#FBFAF6;--ink:#1E1E1E;--muted:#5f5f58;--line:#e4e1d6;--green:#1F4D2B;--on-green:#FBFAF6;--red:#D8342A;--on-red:#fff;--card:#fff;--field:#fff;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#141713;--ink:#f1efe6;--muted:#aaa89c;--line:#2d3229;--card:#1c211b;--field:#232922;--green:#0f2a18;--red:#e5483d;color-scheme:dark}
+}
+:root[data-theme="dark"]{--bg:#141713;--ink:#f1efe6;--muted:#aaa89c;--line:#2d3229;--card:#1c211b;--field:#232922;--green:#0f2a18;--red:#e5483d;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;padding-bottom:calc(90px + env(safe-area-inset-bottom,0px));background:var(--bg);color:var(--ink);font-family:"Tajawal",system-ui,sans-serif;font-size:17px;line-height:1.7}
+h1,h2,h3{font-family:"Lalezar","Tajawal",sans-serif;font-weight:400;margin:0;line-height:1.2}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+button{font:inherit;color:inherit}
+.btn{display:inline-block;background:var(--red);color:var(--on-red);text-decoration:none;font-weight:700;padding:12px 28px;border-radius:999px;border:0;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn.alt{background:var(--green);color:var(--on-green)}
+
+.hero{background:var(--green);color:var(--on-green);padding:56px 20px 64px;overflow:hidden}
+.hero-in{max-width:960px;margin:auto;display:grid;gap:36px;align-items:center;grid-template-columns:1fr}
+.hero h1{font-size:clamp(3rem,12vw,5.5rem)}
+.hero p{margin:12px 0 24px;max-width:32ch;font-size:1.15rem;opacity:.92}
+.pizza{width:min(260px,70vw);aspect-ratio:1;border-radius:50%;margin:auto;position:relative;background:radial-gradient(circle,#f6c453 0 62%,#e8a93a 63% 70%,#c98a2b 71% 100%);box-shadow:0 0 0 10px #b97a22,0 18px 40px rgba(0,0,0,.35)}
+.pizza i{position:absolute;width:15%;aspect-ratio:1;border-radius:50%;background:#b8301f;box-shadow:inset 0 0 0 3px #9c2517}
+.pizza b{position:absolute;width:7%;aspect-ratio:1;border-radius:50%;background:#2f7a3d}
+@media(min-width:760px){.hero-in{grid-template-columns:1.2fr 1fr}.hero{padding:80px 24px}}
+
+main{max-width:960px;margin:auto;padding:0 20px}
+section{padding:52px 0 4px}
+h2{font-size:2.2rem;margin-bottom:6px}
+.sub{color:var(--muted);margin:0 0 18px}
+
+.menu{list-style:none;margin:0;padding:0}
+.item{display:grid;grid-template-columns:1fr auto;gap:6px 16px;padding:20px 0;border-bottom:1px solid var(--line);align-items:center}
+.item h3{font-size:1.5rem}
+.item p{margin:0;color:var(--muted);grid-column:1 / -1}
+.price{font-family:"Lalezar",sans-serif;font-size:1.7rem;color:var(--red);white-space:nowrap}
+.price small{font-family:"Tajawal",sans-serif;font-size:.85rem;color:var(--muted);margin-inline-start:4px}
+.chips{display:flex;gap:6px;grid-column:1}
+.chip{flex:0 0 auto;padding:6px 16px;border-radius:999px;border:2px solid var(--line);background:var(--card);cursor:pointer;font-size:.95rem}
+.chip[aria-pressed="true"]{background:var(--green);border-color:var(--green);color:var(--on-green)}
+.item .add{grid-column:2;padding:8px 20px;font-size:.95rem;justify-self:end}
+.note{font-size:.9rem;color:var(--muted);margin-top:16px}
+
+.steps{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));padding:0;margin:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.steps li::before{content:counter(s);display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--red);color:var(--on-red);font-weight:700;margin-inline-end:8px}
+.info{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.box h3{font-size:1.3rem;margin-bottom:4px;color:var(--green)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .box h3{color:#8fd19e}}
+.box p{margin:0}
+footer{margin-top:56px;background:var(--green);color:var(--on-green);text-align:center;padding:28px 20px}
+footer p{margin:4px 0;opacity:.88}
+footer a{color:inherit}
+
+.bar{position:fixed;inset:auto 0 0 0;z-index:20;background:var(--green);color:var(--on-green);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));display:none;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 -6px 20px rgba(0,0,0,.2)}
+.bar.show{display:flex}
+.bar strong{font-family:"Lalezar",sans-serif;font-size:1.3rem;font-weight:400}
+
+dialog{border:0;border-radius:18px;padding:0;width:calc(100% - 24px);max-width:520px;max-height:92vh;background:var(--bg);color:var(--ink)}
+dialog::backdrop{background:rgba(0,0,0,.55)}
+.sheet{padding:20px}
+.sheet h2{font-size:1.8rem}
+.close{float:left;background:none;border:0;font-size:1.8rem;line-height:1;cursor:pointer;padding:4px 10px}
+.line{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.line small{display:block;color:var(--muted)}
+.qty{display:flex;align-items:center;gap:8px}
+.qty button{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:var(--card);cursor:pointer;font-size:1.2rem;line-height:1}
+.total{display:flex;justify-content:space-between;font-weight:700;font-size:1.15rem;padding:14px 0}
+label{display:block;font-weight:500;margin:12px 0 4px}
+input,select,textarea{width:100%;padding:11px 12px;border-radius:10px;border:2px solid var(--line);background:var(--field);color:var(--ink);font:inherit}
+.err{color:var(--red);font-size:.9rem;min-height:1.2em;margin:4px 0 0}
+.sheet .btn{width:100%;margin-top:14px;text-align:center}
+.done{text-align:center;padding:12px 0}
+.done h2{color:var(--green)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .done h2{color:#8fd19e}}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-in">
+    <div>
+      <h1>بيتزاريا</h1>
+      <p>اطلب من الموقع وعجينتك تنتظرك طازجة وسخنة. ما في طابور ولا انتظار.</p>
+      <a class="btn" href="#menu">ابدأ طلبك المسبق</a>
+    </div>
+    <div class="pizza" aria-hidden="true">
+      <i style="top:18%;right:30%"></i><i style="top:22%;left:24%"></i><i style="top:46%;right:16%"></i>
+      <i style="top:50%;left:14%"></i><i style="bottom:18%;right:32%"></i><i style="bottom:20%;left:30%"></i><i style="top:40%;left:42%"></i>
+      <b style="top:32%;right:48%"></b><b style="top:62%;right:50%"></b><b style="top:34%;left:12%"></b><b style="bottom:30%;left:46%"></b>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section id="menu">
+    <h2>المنيو</h2>
+    <p class="sub">اختر الحجم واضغط "أضف للطلب".</p>
+    <ul class="menu" id="menuList"></ul>
+    <p class="note">الأسعار بالريال السعودي وشاملة الضريبة. الدفع عند الاستلام.</p>
+  </section>
+
+  <section id="how">
+    <h2>كيف يشتغل الطلب المسبق؟</h2>
+    <p class="sub">ثلاث خطوات وتستلم بيتزاك.</p>
+    <ol class="steps">
+      <li>اختر أصنافك وأضفها للطلب.</li>
+      <li>اكتب اسمك وجوالك واختر وقت الاستلام.</li>
+      <li>تعال المطعم في الوقت المحدد وادفع واستلم.</li>
+    </ol>
+  </section>
+
+  <section id="info">
+    <h2>معلومات المطعم</h2>
+    <div class="info">
+      <div class="box"><h3>العنوان</h3><p>جدة، حي الروضة، شارع الأمير سلطان</p></div>
+      <div class="box"><h3>أوقات الدوام</h3><p>يومياً من 12 الظهر إلى 1 بعد منتصف الليل</p></div>
+      <div class="box"><h3>الاستلام</h3><p>الاستلام من المطعم فقط. الطلب يجهز خلال 20 إلى 30 دقيقة.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>بيتزاريا، جدة</p>
+</footer>
+
+<div class="bar" id="bar">
+  <div><span id="barCount"></span> · <strong id="barTotal"></strong></div>
+  <button class="btn" id="openCart" type="button">راجع طلبك</button>
+</div>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <div class="sheet">
+    <button class="close" id="closeDlg" type="button" aria-label="إغلاق">×</button>
+    <div id="orderView">
+      <h2 id="dlgTitle">طلبك</h2>
+      <div id="lines"></div>
+      <div class="total"><span>المجموع</span><span id="sum"></span></div>
+      <form id="form" novalidate>
+        <label for="fName">الاسم</label>
+        <input id="fName" autocomplete="name" required>
+        <label for="fPhone">رقم الجوال</label>
+        <input id="fPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="05xxxxxxxx" dir="ltr" style="text-align:right" required>
+        <label for="fTime">وقت الاستلام</label>
+        <select id="fTime"></select>
+        <label for="fNote">ملاحظات (اختياري)</label>
+        <textarea id="fNote" rows="2" placeholder="مثال: بدون زيتون"></textarea>
+        <p class="err" id="err" role="alert"></p>
+        <button class="btn" type="submit">أرسل الطلب</button>
+      </form>
+    </div>
+    <div class="done hidden" id="doneView">
+      <h2>تم استلام طلبك</h2>
+      <p id="doneText"></p>
+      <button class="btn alt" id="newOrder" type="button">طلب جديد</button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+var SIZES=["صغير","وسط","كبير"];
+var ITEMS=[
+ {n:"مارجريتا",d:"صلصة طماطم، موزاريلا، ريحان طازج",p:[22,30,38]},
+ {n:"بيبروني",d:"شرائح بيبروني، موزاريلا، صلصة طماطم",p:[26,34,42]},
+ {n:"أربع أجبان",d:"موزاريلا، شيدر، جبنة زرقاء، بارميزان",p:[28,36,45]},
+ {n:"خضار",d:"فلفل ملوّن، زيتون، فطر، بصل، ذرة",p:[24,32,40]},
+ {n:"دجاج باربكيو",d:"دجاج متبّل، صوص باربكيو، بصل، موزاريلا",p:[28,36,45]},
+ {n:"سوبريم",d:"لحم مفروم، بيبروني، فلفل، فطر، زيتون",p:[30,39,48]}
+];
+var cart=[], sel=ITEMS.map(function(){return 1});
+try{var s=JSON.parse(localStorage.getItem("pz_cart")||"[]");if(Array.isArray(s))cart=s.filter(function(c){return ITEMS[c.i]&&c.s>=0&&c.s<3&&c.q>0})}catch(e){}
+
+function $(id){return document.getElementById(id)}
+function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
+function save(){try{localStorage.setItem("pz_cart",JSON.stringify(cart))}catch(e){}}
+function total(){return cart.reduce(function(a,c){return a+ITEMS[c.i].p[c.s]*c.q},0)}
+function count(){return cart.reduce(function(a,c){return a+c.q},0)}
+
+/* menu */
+function renderMenu(){
+  var ul=$("menuList");ul.innerHTML="";
+  ITEMS.forEach(function(it,i){
+    var li=el("li","item");
+    li.appendChild(el("h3","","بيتزا "+it.n));
+    var pr=el("div","price",String(it.p[sel[i]]));pr.appendChild(el("small","","ريال"));
+    li.appendChild(pr);li.appendChild(el("p","",it.d));
+    var ch=el("div","chips");ch.setAttribute("role","group");ch.setAttribute("aria-label","الحجم");
+    SIZES.forEach(function(sn,k){
+      var b=el("button","chip",sn);b.type="button";b.setAttribute("aria-pressed",sel[i]===k?"true":"false");
+      b.onclick=function(){sel[i]=k;renderMenu()};ch.appendChild(b);
+    });
+    li.appendChild(ch);
+    var a=el("button","btn add","أضف للطلب");a.type="button";
+    a.onclick=function(){
+      var f=cart.find(function(c){return c.i===i&&c.s===sel[i]});
+      if(f)f.q++;else cart.push({i:i,s:sel[i],q:1});
+      update();a.textContent="تمت الإضافة ✓";setTimeout(function(){a.textContent="أضف للطلب"},1200);
+    };
+    li.appendChild(a);ul.appendChild(li);
+  });
+}
+
+/* cart */
+function update(){
+  save();
+  var n=count();
+  $("bar").classList.toggle("show",n>0);
+  $("barCount").textContent=n+(n===1?" صنف":" أصناف");
+  $("barTotal").textContent=total()+" ريال";
+  if($("dlg").open)renderLines();
+}
+function renderLines(){
+  var box=$("lines");box.innerHTML="";
+  if(!cart.length){box.appendChild(el("p","sub","طلبك فاضي. أضف بيتزا من المنيو."));$("dlg").close();return}
+  cart.forEach(function(c){
+    var it=ITEMS[c.i],row=el("div","line");
+    var t=el("div","","بيتزا "+it.n);t.appendChild(el("small","",SIZES[c.s]+" · "+it.p[c.s]*c.q+" ريال"));
+    var q=el("div","qty"),m=el("button","","−"),p=el("button","","+"),v=el("span","",String(c.q));
+    m.type=p.type="button";m.setAttribute("aria-label","إنقاص");p.setAttribute("aria-label","زيادة");
+    m.onclick=function(){c.q--;if(c.q<=0)cart.splice(cart.indexOf(c),1);update()};
+    p.onclick=function(){c.q++;update()};
+    q.appendChild(m);q.appendChild(v);q.appendChild(p);
+    row.appendChild(t);row.appendChild(q);box.appendChild(row);
+  });
+  $("sum").textContent=total()+" ريال";
+}
+
+/* pickup time slots: every 30 min, inside opening hours 12:00 to 01:00 */
+function slots(){
+  var out=[],now=new Date(),t=new Date(now.getTime()+30*60000);
+  t.setSeconds(0,0);t.setMinutes(Math.ceil(t.getMinutes()/30)*30);
+  var today=now.toDateString(),tom=new Date(now.getTime()+864e5).toDateString();
+  for(var k=0;k<60&&out.length<8;k++){
+    var h=t.getHours(),m=t.getMinutes(),open=(h>=12)||(h===0)||(h===1&&m===0);
+    if(open){
+      var d=t.toDateString(),day=d===today?"اليوم":(d===tom?"بكرة":"");
+      var hh=h%12===0?12:h%12,mm=m?":30":"";
+      var part=h===0||h===1?"بعد منتصف الليل":(h<12?"صباحاً":(h<18?"عصراً":"مساءً"));
+      if(h===12)part="ظهراً";
+      out.push((day?day+" ":"")+hh+mm+" "+part);
+    }
+    t=new Date(t.getTime()+30*60000);
+  }
+  return out;
+}
+function fillSlots(){
+  var s=$("fTime");s.innerHTML="";
+  var o=el("option","","أقرب وقت (20 إلى 30 دقيقة)");o.value="أقرب وقت";s.appendChild(o);
+  slots().forEach(function(x){var op=el("option","",x);op.value=x;s.appendChild(op)});
+}
+
+/* dialog */
+function openDlg(){
+  $("orderView").classList.remove("hidden");$("doneView").classList.add("hidden");
+  $("err").textContent="";fillSlots();renderLines();
+  if(cart.length&&!$("dlg").open)$("dlg").showModal();
+}
+$("openCart").onclick=openDlg;
+$("closeDlg").onclick=function(){$("dlg").close()};
+$("dlg").addEventListener("click",function(e){if(e.target===this)this.close()});
+
+$("form").addEventListener("submit",function(e){
+  e.preventDefault();
+  var name=$("fName").value.trim(),phone=$("fPhone").value.replace(/[\s-]/g,"").replace(/[٠-٩]/g,function(d){return "٠١٢٣٤٥٦٧٨٩".indexOf(d)});
+  if(!name){$("err").textContent="اكتب اسمك.";$("fName").focus();return}
+  if(!/^(05\d{8}|\+?9665\d{8})$/.test(phone)){$("err").textContent="رقم الجوال غير صحيح. مثال: 0501234567";$("fPhone").focus();return}
+  var no=Math.floor(1000+Math.random()*9000);
+  $("doneText").textContent="رقم طلبك #"+no+". "+name+"، بيتزاك بتكون جاهزة للاستلام من المطعم ("+$("fTime").value+"). المجموع "+total()+" ريال والدفع عند الاستلام.";
+  cart=[];save();
+  $("orderView").classList.add("hidden");$("doneView").classList.remove("hidden");
+});
+$("newOrder").onclick=function(){$("dlg").close()};
+$("dlg").addEventListener("close",update);
+
+renderMenu();update();
+</script>
+</body>
+</html>
